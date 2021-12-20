@@ -132,7 +132,7 @@ Function ConfigureApplications {
         -KeySpec Signature
     $certBase64Value = [System.Convert]::ToBase64String($certificate.GetRawCertData())
     $certBase64Thumbprint = [System.Convert]::ToBase64String($certificate.GetCertHash())
-    $pfxLocation = Get-Location
+    $pfxLocation = $env:USERPROFILE\downloads
 
     #export pfx
     $pfxOut = GetUnusedFileName -desiredName "Certificate" -desiredExtension "pfx"
@@ -227,14 +227,14 @@ Function ConfigureApplications {
 
     Set-Content -Path $txtFile -Value $Value
 
-    Compress-Archive $compress
+    Compress-Archive @compress
 
 }
 
 # Pre-requisites
 Prerequisite
 
-$securePassPlain = Get-RandomCharacters -length 32 -characters "abcdefghiklmnoprstuvwxyzABCDEFGHKLMNOPRSTUVWXYZ1234567890!ง$%&/()=?}][{@#*+"
+$securePassPlain = Get-RandomCharacters -length 32 -characters "abcdefghiklmnoprstuvwxyzABCDEFGHKLMNOPRSTUVWXYZ1234567890!ยง$%&/()=?}][{@#*+"
 $securePasswd = $securePassPlain|ConvertTo-SecureString -Force -AsPlainText
 ConfigureApplications -passWord $securePasswd
 
