@@ -132,7 +132,7 @@ Function ConfigureApplications {
         -KeySpec Signature
     $certBase64Value = [System.Convert]::ToBase64String($certificate.GetRawCertData())
     $certBase64Thumbprint = [System.Convert]::ToBase64String($certificate.GetCertHash())
-    $pfxLocation = $env:USERPROFILE\downloads
+    $pfxLocation = Get-Location
 
     #export pfx
     $pfxOut = GetUnusedFileName -desiredName "Certificate" -desiredExtension "pfx"
