@@ -1,4 +1,4 @@
-﻿<# Title: Create Inbound Connecter for Oxillion's Mail-Scanner (Hosted Spam-Filter)
+<# Title: Create Inbound Connecter for Oxillion's Mail-Scanner (Hosted Spam-Filter)
    Note: This script gets all your connected customers from the Partner Portal and creates an InboundConnector for Exchange Online.
          It enables Enhanced Filtering for Connectors for the IP's from your 3rd Party Hosted Spam Filter.
          Be sure to change the $OSFArrayv4 to all possible IP's that your hosted Spam Filter might use.
@@ -22,8 +22,21 @@ Write-Host "Importing modules..." -ForegroundColor Yellow -BackgroundColor Black
 Import-Module -Name ExchangeOnlineManagement -Force
 Import-Module -Name PartnerCenter -Force
 
+# Skipping the statusbars part in Console from installing/importing modules.
+$ClipBoardEmail = Read-Host "
 
-$ClipBoardEmail = Read-Host "`nEnter your email address: "
+
+
+
+
+
+
+
+
+
+
+
+`nEnter your email address: "
 Set-Clipboard -Value $ClipBoardEmail
 Write-Host "CLIPBOARD SET WITH : $ClipBoardEmail" -ForegroundColor Yellow -BackgroundColor Black
 
