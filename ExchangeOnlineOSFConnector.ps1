@@ -2,6 +2,7 @@
    Note: This script gets all your connected customers from the Partner Portal and creates an InboundConnector for Exchange Online.
          It enables Enhanced Filtering for Connectors for the IP's from your 3rd Party Hosted Spam Filter.
          Be sure to change the $OSFArrayv4 to all possible IP's that your hosted Spam Filter might use.
+         IPv6 is not allowed through Powershell and not through https://admin.exchange.microsoft.com
          Refer to the knowledgebase of your product or contact support.
 
          Please use this as inspiration to create inbound connectors for Exchange Online or On-Premise, the cmdlets really look a like.
@@ -22,7 +23,7 @@ Write-Host "Importing modules..." -ForegroundColor Yellow -BackgroundColor Black
 Import-Module -Name ExchangeOnlineManagement -Force
 Import-Module -Name PartnerCenter -Force
 
-# Skipping the statusbars part in Console from installing/importing modules.
+
 $ClipBoardEmail = Read-Host "
 
 
@@ -91,7 +92,7 @@ Write-Host "Create a new inbound connector for Online Spam Filter ? [yes][no] `n
 $SetInbound = Read-Host -Prompt " "
 
 If($SetInbound -eq "yes"){
-New-InboundConnector -Name "Online Spam Filter - Inbound Connector" -SenderIPAddresses $OSFArrayv4 -ConnectorType "Partner" -Enabled $False -RestrictDomainsToIPAddresses $false -RestrictDomainsToCertificate $false -CloudServicesMailEnabled $false -TreatMessagesAsInternal $false -ScanAndDropRecipients $false -EFSkipLastIP $false -EFSkipIPs $OSFArrayv4 -SenderDomains "smtp:*;1" | Out-Null
+New-InboundConnector -Name "Online Spam Filter - Inbound Connector" -SenderIPAddresses $OSFArrayv4 -ConnectorType "Partner" -Enabled $False -RestrictDomainsToIPAddresses $false -RestrictDomainsToCertificate $false -RequireTls $True -CloudServicesMailEnabled $false -TreatMessagesAsInternal $false -ScanAndDropRecipients $false -EFSkipLastIP $false -EFSkipIPs $OSFArrayv4 -SenderDomains "smtp:*;1" | Out-Null
 If((Get-InboundConnector "Online Spam Filter - Inbound Connector") -ne $false){Get-InboundConnector "Online Spam Filter - Inbound Connector" | Select *
 Write-Host "Inbound Connector succesfully created using the following Best Practices:
 https://docs.microsoft.com/en-us/exchange/mail-flow-best-practices/use-connectors-to-configure-mail-flow/enhanced-filtering-for-connectors
