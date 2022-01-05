@@ -227,7 +227,7 @@ Function ConfigureApplications {
 
     Set-Content -Path $txtFile -Value $Value
 
-    Compress-Archive @compress
+    Compress-Archive @compress -Force
 
 }
 
