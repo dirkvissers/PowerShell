@@ -234,7 +234,7 @@ Function ConfigureApplications {
 # Pre-requisites
 Prerequisite
 
-$securePassPlain = Get-RandomCharacters -length 32 -characters "abcdefghiklmnoprstuvwxyzABCDEFGHKLMNOPRSTUVWXYZ1234567890!§$%&/()=?}][{@#*+"
+$securePassPlain = Get-RandomCharacters -length 32 -characters "abcdefghiklmnoprstuvwxyzABCDEFGHKLMNOPRSTUVWXYZ1234567890!$%&/()?}][{@#*+"
 $securePasswd = $securePassPlain|ConvertTo-SecureString -Force -AsPlainText
 ConfigureApplications -passWord $securePasswd
 
